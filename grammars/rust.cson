@@ -1,7 +1,7 @@
 fileTypes: [
     'rs'
 ]
-name: 'Xliners Rust'
+name: "Xliner's Rust"
 scopeName: 'source.rust'
 repository:
     codetags:
