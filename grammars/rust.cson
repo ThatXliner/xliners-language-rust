@@ -230,8 +230,8 @@ repository:
     'comment-blocks':
         patterns: [
             {
-                name: 'comment.documentation.rust'
-                begin: '(/\\*)'
+                name: 'comment.rust'
+                begin: '(/\\*(?!\\*|!))'
                 beginCaptures:
                     '1':
                         name: 'markup.definition.comment.begin.rust'
@@ -245,19 +245,39 @@ repository:
                         include: '#comment-blocks'
                     }
                     {
-                        include: 'source.gfm'
+                        include: '#codetags'
                     }
                 ]
             }
             {
-                include: '#codetags'
+                name: 'comment.documentation.rust'
+                begin: '(/\\*(?:\\*|!))'
+                beginCaptures:
+                    '1':
+                        name: 'markup.definition.comment.documentation.begin.rust'
+                end: '(\\*/)'
+                endCaptures:
+                    '1':
+                        name: 'markup.definition.comment.documentation.end.rust'
+                patterns: [
+                    {
+                        comment: 'recursively match for comment blocks'
+                        include: '#comment-blocks'
+                    }
+                    {
+                        include: '#codetags'
+                    }
+                    {
+                        include: 'source.gfm'
+                    }
+                ]
             }
         ]
     'comment-lines':
         patterns: [
             {
                 name: 'comment.line.rust'
-                match: '//(?!/)(.*)',
+                match: '//(?!/|!)(.*)',
                 captures:
                     '1':
                         patterns: [
@@ -268,7 +288,7 @@ repository:
             }
             {
                 name: 'comment.line.documentation.rust'
-                match: '///(.*)',
+                match: '//(?:/|!)(.*)',
                 captures:
                     '1':
                         patterns: [
