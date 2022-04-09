@@ -12,7 +12,8 @@ repository :
     attributes :
         patterns : [
             {
-                name : 'meta.attribute.rust'
+                comment : 'procedural macros'
+                name : 'support.macro.attribute.rust'
                 begin : '#\\s*!?\\s*\\['
                 end : '\\]'
                 patterns : [
